@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎂 Happy Birthday Saloni!</title>
+  <style>
+    bbody {
+    margin: 0;
+    font-family: 'Comic Sans MS', cursive;
+    background: linear-gradient(to top right, #ffdee9, #b5fffc);
+    overflow-x: hidden;
+  }
+
+  .slide {
+    display: none;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .slide.active {
+    display: flex;
+  }
+
+  h1, h2 {
+    font-size: 2rem;
+    color: #ff69b4;
+    animation: glow 1.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from { text-shadow: 0 0 10px #ff69b4; }
+    to { text-shadow: 0 0 20px #ff1493; }
+  }
+    .cake {
+      position: relative;
+      margin: 30px auto;
+      width: 200px;
+      height: 200px;
+      transform-style: preserve-3d;
+     
+    }
+
+    .layer {
+      position: absolute;
+      width: 200px;
+      height: 60px;
+      background: #fcbf49;
+      border-radius: 50%;
+      box-shadow: inset 0 0 10px #ff9900;
+    }
+
+    .layer:nth-child(2) {
+      top: 50px;
+      width: 180px;
+      height: 50px;
+      left: 10px;
+      background: #f77f00;
+    }
+
+    .layer:nth-child(3) {
+      top: 90px;
+      width: 160px;
+      height: 40px;
+      left: 20px;
+      background: #d62828;
+    }
+
+    .candle {
+      position: absolute;
+      top: 10px;
+      left: 90px;
+      width: 20px;
+      height: 60px;
+      background: #ffffff;
+      border-radius: 5px;
+      animation: flicker 1s infinite;
+    }
+
+    .flame {
+      position: absolute;
+      top: -20px;
+      left: 5px;
+      width: 10px;
+      height: 20px;
+      background: orange;
+      border-radius: 50%;
+      box-shadow: 0 0 10px yellow;
+    }
+
+    @keyframes flicker {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(2deg); }
+    }
+
+    @keyframes spin {
+      from { transform: rotateY(0deg); }
+      to { transform: rotateY(360deg); }
+    }
+
+    .photo, .birthday-photo, .center-photo {
+      max-width: 220px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #ff69b4;
+      margin-bottom: 20px;
+      object-fit: cover;
+    }
+
+    .quote, .center-message {
+      color: #ff1493;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      max-width: 90%;
+      text-align: center;
+    }
+
+    .photo-choice {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .photo {
+      width: 120px;
+      height: 120px;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: 0.3s;
+    }
+
+    .photo:hover {
+      border-color: #ff4081;
+    }
+
+    button {
+      background: #ff4081;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -100px;
+      width: 40px;
+      height: 60px;
+      background: red;
+      border-radius: 50%;
+      animation: float 10s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-120vh); }
+    }
+
+    .balloon::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      width: 2px;
+      height: 20px;
+      background: #444;
+    }
+
+    audio {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+    }
+  </style>
+</head>
+  <body>
+  <!-- Slide 0 - Intro Video -->
+  <div class="slide active" id="slide0">
+    <h2>🎬 A Little Surprise!</h2>
+    <p>Here's something special just for you 💝</p>
+    <video controls style="width: 70%; max-width: 250px; border-radius: 12px; box-shadow: 0 0 20px #ff69b4;">
+      <source src="s-intro.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <button onclick="nextSlide(0)">Continue</button>
+  </div>
+
+  <!-- Slide 1 - Birthday Message -->
+  <div class="slide" id="slide1">
+    <h1>🎉 Happy Birthday Saloni! 🎉</h1>
+    <div class="cake">
+      <div class="layer"></div>
+      <div class="layer"></div>
+      <div class="layer"></div>
+      <div class="candle"><div class="flame"></div></div>
+     </div>
+    <p> Dear Saloni,<br>
+        You light up every room with your smile.<br>
+        May your year ahead be as wonderful and sparkling as you!<br>
+        💖 Happy Birthday! 💖👇</p>
+    <button onclick="nextSlide(1)">Continue</button>
+  </div>
+
+  <!-- Slide 2 - Photo Choice -->
+  <div class="slide" id="slide2">
+    <h2>📷 Task 2</h2>
+    <p>Choose the photo in which you are more beautiful👇</p>
+    <div class="photo-choice">
+      <img src="s11.jpg" class="photo" onclick="choosePhoto(1)">
+      <img src="s19.jpg" class="photo" onclick="choosePhoto(2)">
+    </div>
+    <p id="teaseText" class="quote"></p>
+  </div>
+  
+
+  <div class="slide" id="slide3">
+    <h2>💖 Just for You</h2>
+    <img src="s2.jpg" class="birthday-photo">
+    <p class="quote">"हँसते दिलो में ग़म भी हैं, मुस्कुराती आँखे कभी नम भी हैं, दुआ करते है आपकी हंसी कभी न रुके, क्योकि आपकी मुस्कुराहट के दीवाने हम भी हैं​"</p>
+    <button onclick="nextSlide(3)">Continue</button>
+  </div>
+
+  <div class="slide" id="slide4">
+    <h2>"reine de beauté"</h2>
+    <img src="s8.jpg" class="birthday-photo">
+    <p class="quote">चाँदी सोना एक तरफ़ तेरा होना एक तरफ़ एक तरफ़ तेरी आँखें जादू टोना एक तरफ़.Happy Birthday!"</p>
+    <button onclick="nextSlide(4)">Continue</button>
+  </div>
+
+  <div class="slide" id="slide5">
+    <h2>Watashi wa anata o mitsuketa...</h2>
+    <img src="s5.jpg" class="birthday-photo">
+    <p class="quote">"इतना खूबसूरत चेहरा है तुम्हारा !! हर दिल दीवाना है  तुम्हारा !! लोग कहते है चांद का टुकड़ा हो तुम !! लेकिन हम कहते है चांद टुकड़ा है तुम्हारा !!. Happy Birthday!"</p>
+    <button onclick="nextSlide(5)">Continue</button>
+  </div>
+
+  <div class="slide" id="slide6">
+    <h2>(Ty moya edinstvennaya)</h2>
+    <img src="s33.jpg" class="birthday-photo">
+    <p class="quote">"कोई इतना प्यारा कैसे हो सकता है, फिर सारे का सारा कैसे हो सकता है,<br>तुझसे बात हो तभी कमी महसूस होती है,<br>तेरे बगैर गुज़ारा कैसे हो सकता है<br>Happy Birthday!"</p>
+    <button onclick="nextSlide(6)">Continue</button>
+  </div>
+
+  <div class="slide" id="slide7">
+    <h2>Voglio stare sempre con te</h2>
+    <img src="s25.jpg" class="birthday-photo">
+    <p class="quote"> kya likhu tere soorat e tareef mein
+alfaz khtm hogai hai teri adaein dekh dekh kr
+Happy Birthday!"</p>
+    <button onclick="nextSlide(7)">Continue</button>
+  </div>
+
+  <div class="slide" id="slide8">
+    <h2>"Always stay happy and joyful"</h2>
+    <img src="s15.jpg" class="birthday-photo">
+    <p class="quote">"Ankho se sawal puchna kisne sikhaya apko
+muskura kr maar dena kisne sikhaya apko,
+dil too krta hai apko baith ke sirf dekhta rhu,
+upr wale ne itna pyara ku banya hai apko
+. Happy Birthday!" Happy Birthday!"</p>
+    <button onclick="nextSlide(8)">Continue</button>
+  </div>
+
+  <div class="slide" id="slide9">
+    <h2>YOUR EYES STOLE ALL THE WORDS AWAY</h2>
+    <img src="s14.jpg" class="birthday-photo">
+    <p class="quote">"u too hazaro lafz aapki tarif mai keh du,
+lekin woo bhi kmm lagte hai,
+shayad iss duniya mai woo lafz hi nhi joo aapki khubsurti mai byan kr saku. Happy Birthday!"</p>
+    <button onclick="nextSlide(9)">Continue</button>
+  </div>
+
+  <div class="slide" id="slide10">
+    <h2>"reine de beauté"</h2>
+    <img src="s&r.jpg" class="birthday-photo">
+    <p class="quote">Always stay confident,stay happy,Always be yourself,keep smiling,keep singing you are really brilliant singer,<br>and last thing ..... </p>
+    <button onclick="nextSlide(10)">Continue</button>
+  </div>
+
+  <div class="slide" id="slide11">
+    <h2>"reine de beauté"</h2>
+    <img src="s32.jpg" class="birthday-photo">
+    <p class="quote">NO ONE IS BETTER THAN YOU,YOU ARE THE BEST AND NEVER FORGET I AM ALWAYS AVAILABLE FOR YOU<br>AND ONE THING THAT I WANT TO TELL YOU FROMM VERY LONG TIME....</p>
+  <button onclick="nextSlide(11)">Continue</button>
+</div>
+
+   <!-- Slide 12 - Ending Video -->
+    <div class="slide" id="slide12">
+     <video controls style="width: 70%; max-width: 250px; border-radius: 8px; box-shadow: 0 0 20px #ff69b4;">  
+      <source src="s-end.mp4" type="video/mp4">
+    </video>
+    <p>HAPPY Birthday Dear</p>
+    </div>
+
+ <!-- Balloons + Slide Script -->
+
+ <script>
+  function nextSlide(currentSlideNum) {
+    const current = document.getElementById('slide' + currentSlideNum);
+    const next = document.getElementById('slide' + (currentSlideNum + 1));
+    if (current && next) {
+      current.classList.remove('active');
+      next.classList.add('active');
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const slide2 = document.getElementById("slide2");
+    let hasTransitioned = false; // ✅ Prevents re-trigger
+
+    const observer = new MutationObserver(() => {
+      if (slide2.classList.contains("active") && !hasTransitioned) {
+        hasTransitioned = true; // Mark that we've transitioned
+        setTimeout(() => {
+          nextSlide(2);
+          observer.disconnect(); // ✅ Clean up
+        }, 10000); // or however long slide 2 content runs
+      }
+    });
+
+    observer.observe(slide2, { attributes: true, attributeFilter: ['class'] });
+  });
+
+
+  // Photo teaser interaction logic
+  let photoClickCount = 0;
+  function choosePhoto(choice) {
+    const teaseText = document.getElementById('teaseText');
+    photoClickCount++;
+
+    if (photoClickCount === 1) {
+      teaseText.textContent = choice === 1
+        ? "yrr,second wali mai jaida achi lag rhi hai😜"
+        : "lekin first wali mai bahut jaida sundr lag rhi hai";
+    } else if (photoClickCount === 2) {
+      teaseText.textContent = choice === 1
+        ? "lekin yrr second wali mai bhi bahut cute dikh rhi hai"
+        : "lekin first wali best hai 💅";
+    } else {
+      teaseText.textContent = "yrr,choose kya krna,too har time hi bahut sundr lagti hai 😍";
+      setTimeout(() => nextSlide(1), 2500);
+    }
+  }
+
+  // Function to generate floating balloons
+  function createBalloon() {
+    const b = document.createElement("div");
+    b.className = "balloon";
+    b.style.left = Math.random() * window.innerWidth + "px";
+    b.style.background = `hsl(${Math.random() * 360}, 80%, 60%)`;
+    b.style.animationDuration = 8 + Math.random() * 5 + "s";
+    document.body.appendChild(b);
+    setTimeout(() => b.remove(), 6000);
+  }
+
+  // Continuously create balloons
+  setInterval(createBalloon, 150);
+</script>
