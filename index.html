@@ -210,17 +210,24 @@
     <button onclick="nextSlide(1)">Continue</button>
   </div>
 
-  <!-- Slide 2 - Photo Choice -->
-  <div class="slide" id="slide2">
-    <h2>📷 Task 2</h2>
-    <p>Choose the photo in which you are more beautiful👇</p>
-    <div class="photo-choice">
-      <img src="s11.jpg" class="photo" onclick="choosePhoto(1)">
-      <img src="s19.jpg" class="photo" onclick="choosePhoto(2)">
-    </div>
-    <p id="teaseText" class="quote"></p>
+ <!-- Slide 2 - Photo Choice -->
+<div class="slide" id="slide2" style="display: none;">
+  <h2>📷 Task 2</h2>
+  <p>Choose the photo in which you are more beautiful 👇</p>
+
+  <!-- Photo options -->
+  <div class="photo-choice">
+    <img src="s11.jpg" class="photo" onclick="choosePhoto(1)">
+    <img src="s19.jpg" class="photo" onclick="choosePhoto(2)">
   </div>
-  
+
+  <!-- Teasing text appears here -->
+  <p id="teaseText" class="quote"></p>
+
+  <!-- Continue button (initially hidden) -->
+  <button id="continueBtn2" onclick="nextSlide(2)" style="display: none;">Continue</button>
+</div>
+
 
   <div class="slide" id="slide3">
     <h2>💖 Just for You</h2>
@@ -302,57 +309,52 @@ shayad iss duniya mai woo lafz hi nhi joo aapki khubsurti mai byan kr saku. Happ
     <p>HAPPY BIRTHDAY DEAR</p>
     </div>
 
- <!-- Balloons + Slide Script -->
-
  <script>
-  function nextSlide(currentSlideNum) {
-    const current = document.getElementById('slide' + currentSlideNum);
-    const next = document.getElementById('slide' + (currentSlideNum + 1));
-    if (current && next) {
-      current.classList.remove('active');
-      next.classList.add('active');
+  // ---- Slide Navigation Logic ----
+  function nextSlide(currentSlide) {
+    document.getElementById("slide" + currentSlide).style.display = "none";
+    const next = currentSlide + 1;
+    const nextSlide = document.getElementById("slide" + next);
+    if (nextSlide) {
+      nextSlide.style.display = "block";
     }
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const slide2 = document.getElementById("slide2");
-    let hasTransitioned = false; // ✅ Prevents re-trigger
-
-    const observer = new MutationObserver(() => {
-      if (slide2.classList.contains("active") && !hasTransitioned) {
-        hasTransitioned = true; // Mark that we've transitioned
-        setTimeout(() => {
-          nextSlide(2);
-          observer.disconnect(); // ✅ Clean up
-        }, 10000); // or however long slide 2 content runs
-      }
-    });
-
-    observer.observe(slide2, { attributes: true, attributeFilter: ['class'] });
-  });
-
-
-  // Photo teaser interaction logic
+  // ---- Teasing Photo Interaction Logic (Slide 2) ----
   let photoClickCount = 0;
   function choosePhoto(choice) {
     const teaseText = document.getElementById('teaseText');
+    const continueBtn = document.getElementById('continueBtn2');
     photoClickCount++;
 
     if (photoClickCount === 1) {
       teaseText.textContent = choice === 1
-        ? "yrr,second wali mai jaida achi lag rhi hai😜"
+        ? "yrr, second wali mai jaida achi lag rhi hai 😜"
         : "lekin first wali mai bahut jaida sundr lag rhi hai";
     } else if (photoClickCount === 2) {
       teaseText.textContent = choice === 1
         ? "lekin yrr second wali mai bhi bahut cute dikh rhi hai"
         : "lekin first wali best hai 💅";
     } else {
-      teaseText.textContent = "yrr,choose kya krna,too har time hi bahut sundr lagti hai 😍";
-      setTimeout(() => nextSlide(1), 2500);
+      teaseText.textContent = "yrr, choose kya krna, tu to har time hi bahut sundr lagti hai 😍";
+      setTimeout(() => nextSlide(2), 2500); // ✅ fixed from nextSlide(1)
+    }
+
+    // Optional: Highlight the selected photo
+    document.querySelectorAll(".photo").forEach(img => {
+      img.style.border = "none";
+    });
+    document.querySelectorAll(".photo")[choice - 1].style.border = "3px solid hotpink";
+
+    // Show Continue button only if click count is 1 or 2
+    if (photoClickCount <= 2 && continueBtn) {
+      continueBtn.style.display = "inline-block";
+    } else if (continueBtn) {
+      continueBtn.style.display = "none";
     }
   }
 
-  // Function to generate floating balloons
+  // ---- Floating Balloons Logic ----
   function createBalloon() {
     const b = document.createElement("div");
     b.className = "balloon";
@@ -363,6 +365,6 @@ shayad iss duniya mai woo lafz hi nhi joo aapki khubsurti mai byan kr saku. Happ
     setTimeout(() => b.remove(), 6000);
   }
 
-  // Continuously create balloons
+  // Keep creating balloons
   setInterval(createBalloon, 150);
 </script>
